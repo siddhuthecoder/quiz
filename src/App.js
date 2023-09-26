@@ -15,7 +15,7 @@ function App() {
     const fetchUser = async () => {
       const base_url = process.env.REACT_APP_SERVER_ROUTE;
       try {
-        const { data } = await axios.get(`${base_url}/user`, {
+        const { data } = await axios.get(`${base_url}user`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

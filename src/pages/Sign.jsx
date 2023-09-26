@@ -39,7 +39,7 @@ export default function Sign() {
     setIsLoading(true);
 
     const postData = { ...formData };
-    const endpoint = isSignUpMode ? "/user/signup" : "/user/signin";
+    const endpoint = isSignUpMode ? "user/signup" : "user/signin";
 
     try {
       const response = await axios.post(
