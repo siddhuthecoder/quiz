@@ -1,15 +1,17 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Sign, Home, NoPage } from "./pages";
+import { Routes, Route } from "react-router-dom";
+import { Sign, Home, NoPage, Admin, CreateQuiz } from "./pages";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import { useEffect } from "react";
 import { userActions } from "./store/userSlice";
+import { useNavigate } from "react-router-dom";
 
 function App() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   useEffect(() => {
     const token = localStorage.getItem("token");
     const fetchUser = async () => {
@@ -20,9 +22,13 @@ function App() {
             Authorization: `Bearer ${token}`,
           },
         });
-        console.log(data);
-        dispatch(userActions.setIsUser(true));
         dispatch(userActions.setUser(data));
+        if (data.user.name === process.env.REACT_APP_ADMIN) {
+          dispatch(userActions.setIsAdmin(true));
+          navigate("/admin");
+        } else {
+          dispatch(userActions.setIsUser(true));
+        }
       } catch (error) {
         console.log(error);
         alert(error?.response?.data || error.message);
@@ -33,13 +39,13 @@ function App() {
     }
   }, []);
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/sign" element={<Sign />} />
-        <Route path="*" element={<NoPage />} />
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/sign" element={<Sign />} />
+      <Route path="/admin" element={<Admin />} />
+      <Route path="/quiz/new" element={<CreateQuiz />} />
+      <Route path="*" element={<NoPage />} />
+    </Routes>
   );
 }
 

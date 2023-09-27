@@ -5,6 +5,7 @@ import { userActions } from "../store/userSlice";
 
 export default function Home() {
   const isUser = useSelector((state) => state.user.isUser);
+  const isAdmin = useSelector((state) => state.user.isAdmin);
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.user.userDetails);
   const [contentNumber, setContentNumber] = useState(1);
@@ -15,7 +16,11 @@ export default function Home() {
     console.log(isUser);
     console.log(userData);
     if (!isUser) {
-      navigate("/sign");
+      if (isAdmin) {
+        navigate("/admin");
+      } else {
+        navigate("/sign");
+      }
     }
   }, [isUser, navigate]);
 
