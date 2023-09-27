@@ -39,18 +39,22 @@ export default function Sign() {
     setIsLoading(true);
 
     const postData = { ...formData };
-    const endpoint = isSignUpMode ? "user/signup" : "user/signin";
+    const endpoint = isSignUpMode ? "/user/signup" : "/user/signin";
 
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_SERVER_ROUTE}${endpoint}`,
         postData
       );
-
-      dispatch(userActions.setIsUser(true));
       dispatch(userActions.setUser(response.data.user));
       localStorage.setItem("token", response.data.token);
-      navigate("/");
+      if (response.data.user.name === process.env.REACT_APP_ADMIN) {
+        dispatch(userActions.setIsAdmin(true));
+        navigate("/admin");
+      } else {
+        dispatch(userActions.setIsUser(true));
+        navigate("/");
+      }
     } catch (error) {
       console.error(error);
       const errorMessage =
