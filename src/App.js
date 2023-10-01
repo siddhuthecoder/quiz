@@ -52,6 +52,7 @@ function App() {
           }
         );
         dispatch(quizActions.setQuiz(data));
+        setIsLoading(false);
       } catch (err) {
         console.log(err);
         alert(err?.response?.data.message || err.message);
@@ -64,7 +65,6 @@ function App() {
     } else {
       navigate("/sign");
     }
-    setIsLoading(false);
   }, []);
 
   useEffect(() => {
