@@ -10,40 +10,14 @@ export default function Admin() {
   const isAdmin = useSelector((state) => state.user.isAdmin);
   const quizzes = useSelector((state) => state.quiz.quizzes);
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const BASE_URL = process.env.REACT_APP_BASE_URL;
 
   useEffect(() => {
-    if (!isAdmin) {
-      navigate("/sign");
+    if (quizzes) {
+      setIsLoading(false);
     }
-  }, [navigate]);
-
-  useEffect(() => {
-    if (!quizzes) {
-      setIsLoading(true);
-      const token = localStorage.getItem("token");
-      const fetchQuizzes = async () => {
-        try {
-          const { data } = await axios.get(
-            `${process.env.REACT_APP_SERVER_ROUTE}/quiz`,
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
-          dispatch(quizActions.setQuiz(data));
-        } catch (err) {
-          console.log(err);
-          alert(err?.response?.data.message || err.message);
-        } finally {
-          setIsLoading(false);
-        }
-      };
-      fetchQuizzes();
-    }
-  }, []);
+  }, [quizzes]);
 
   return (
     <>
@@ -116,10 +90,15 @@ export default function Admin() {
                                     "Are you sure you want to delete this quiz"
                                   )
                                 ) {
+                                  const token = localStorage.getItem("token");
                                   try {
-                                    axios.delete(`${deleteUrl}`);
+                                    axios.delete(`${deleteUrl}`, {
+                                      headers: {
+                                        Authorization: `Bearer ${token}`,
+                                      },
+                                    });
                                     alert("Quiz Deleted Successfully");
-                                    window.location.reload();
+                                    dispatch(quizActions.deleteQuiz(quiz._id));
                                   } catch (error) {
                                     console.log(error.message);
                                   }
@@ -138,7 +117,7 @@ export default function Admin() {
             </div>
           ) : (
             <div
-              style={{ width: "100%", minHeight: "300px" }}
+              style={{ width: "100%", minHeight: "300px", marginTop: "100px" }}
               className="d-flex justify-content-center aign-items-center"
             >
               <div className="spinner-border" role="status">

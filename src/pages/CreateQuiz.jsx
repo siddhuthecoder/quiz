@@ -61,7 +61,6 @@ export default function CreateQuiz() {
           quizTime: "",
           quizQuestions: [],
         });
-        alert("New Quiz created Succeesfully");
         navigate("/admin");
       } catch (error) {
         alert(error?.response?.data.message || error.message);
@@ -70,6 +69,7 @@ export default function CreateQuiz() {
         setIsLoading(false);
       }
     }
+    setIsLoading(false);
   };
 
   return (

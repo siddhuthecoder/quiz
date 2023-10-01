@@ -48,7 +48,6 @@ export default function Sign() {
       );
       dispatch(userActions.setUser(response.data.user));
       localStorage.setItem("token", response.data.token);
-      console.log(response.data.user.name, "  , ", process.env.REACT_APP_ADMIN);
       if (response.data.user.name === process.env.REACT_APP_ADMIN) {
         dispatch(userActions.setIsAdmin(true));
         navigate("/admin");

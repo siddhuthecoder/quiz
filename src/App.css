@@ -139,9 +139,8 @@ header {
   margin: 15px auto;
   padding: 10px 20px;
   background-color: #fff;
-  border-radius: 50px;
+  border-radius: 10px;
   font-size: 20px;
-  height: 50px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -162,6 +161,9 @@ header {
   align-items: center;
   padding: 20px;
 }
+label.mb-option {
+  margin-bottom: 80px;
+}
 .quiz-btns button {
   margin: 0px 10px;
 }
@@ -176,6 +178,9 @@ header {
   .quiz-btns {
     position: static;
     flex-wrap: wrap;
+    padding: 20px 0;
+    width: 90%;
+    margin: auto;
   }
   .quiz-btns > button:nth-child(odd),
   .quiz-btns > button:nth-child(even) {
@@ -193,6 +198,9 @@ header {
   }
   .question-container > label {
     font-size: 19px;
+  }
+  label.mb-option {
+    margin-bottom: 0;
   }
 }
 .result-container {
@@ -815,7 +823,7 @@ header.sides {
 .sides-main {
   padding: 20px;
   margin-top: 50px;
-  min-height: 100vh;
+  min-height: calc(100vh - 70px);
 }
 .sides-main h4 {
   font-size: 24px;
@@ -827,4 +835,8 @@ header.sides {
   .sides-main {
     margin-left: 250px;
   }
+}
+/* Main Page */
+.quiz-sec {
+  margin-bottom: 50px;
 }

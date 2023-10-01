@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { userActions } from "../store/userSlice";
+import { Quizzes, Dashboard, TestUpdates, Results } from "../components";
 
 export default function Home() {
   const isUser = useSelector((state) => state.user.isUser);
@@ -13,8 +14,6 @@ export default function Home() {
   const sideBar = useRef(null);
 
   useEffect(() => {
-    console.log(isUser);
-    console.log(userData);
     if (!isUser) {
       if (isAdmin) {
         navigate("/admin");
@@ -90,22 +89,22 @@ export default function Home() {
       <main className="sides-main">
         {contentNumber === 1 && (
           <>
-            <h4>Dashboard</h4>
+            <Dashboard />
           </>
         )}
         {contentNumber === 2 && (
           <>
-            <h4>Quizzes</h4>
+            <Quizzes />
           </>
         )}
         {contentNumber === 3 && (
           <>
-            <h4>Test Updates</h4>
+            <TestUpdates />
           </>
         )}
         {contentNumber === 4 && (
           <>
-            <h4>Results</h4>
+            <Results />
           </>
         )}
       </main>
