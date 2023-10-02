@@ -40,7 +40,7 @@ export default function Admin() {
                 quizzes.length > 0 &&
                 quizzes.map((quiz) => {
                   let link = `/quiz/${quiz._id}`;
-                  let resultLink = `/quiz/result/${quiz._id}`;
+                  let resultLink = `/quiz/leaderboard/${quiz._id}`;
                   let deleteUrl = `${process.env.REACT_APP_SERVER_ROUTE}/quiz/${quiz._id}`;
                   return (
                     <div
