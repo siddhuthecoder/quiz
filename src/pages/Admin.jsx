@@ -4,6 +4,7 @@ import { Button, Header } from "../components";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { quizActions } from "../store/quizSlice";
+import { userActions } from "../store/userSlice";
 
 export default function Admin() {
   const dispatch = useDispatch();
@@ -24,7 +25,21 @@ export default function Admin() {
       <Header />
       {isAdmin && (
         <div className="container mt-5">
-          <h4>Quiz Dasboard</h4>
+          <div className="d-flex justify-content-between">
+            <h4>Quiz Dasboard</h4>
+            <button
+              className="btn"
+              style={{ fontWeight: "550" }}
+              onClick={() => {
+                localStorage.clear();
+                dispatch(userActions.setIsAdmin(false));
+                dispatch(userActions.setUser(null));
+                window.location.reload();
+              }}
+            >
+              Logout
+            </button>
+          </div>
           <div style={{ width: "200px" }}>
             <Link
               to="/quiz/new"
