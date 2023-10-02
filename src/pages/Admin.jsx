@@ -26,7 +26,7 @@ export default function Admin() {
       {isAdmin && (
         <div className="container mt-5">
           <div className="d-flex justify-content-between">
-            <h4>Quiz Dasboard</h4>
+            <h4 className="mb-0 pb-0">Quiz Dasboard</h4>
             <button
               className="btn"
               style={{ fontWeight: "550" }}
