@@ -7,11 +7,6 @@ const Quizzes = () => {
   const attemptedQuiz = useSelector((state) => state.quiz.attemptedQuizzes);
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    console.log(liveQuizzes);
-    console.log(attemptedQuiz);
-  }, [liveQuizzes, attemptedQuiz]);
-
   return (
     <>
       {isLoading ? (
@@ -54,12 +49,20 @@ const Quizzes = () => {
                         <div className="card-body">
                           <h5 className="card-title">{quiz.quizName}</h5>
                           <p className="card-text">{quiz.quizDesc}</p>
-                          <Link
-                            to={`/quiz/result/${quiz._id}`}
-                            className="btn btn-sm btn-primary"
-                          >
-                            View Result
-                          </Link>
+                          <div className="d-flex gap-3">
+                            <Link
+                              to={`/quiz/result/${quiz._id}`}
+                              className="btn btn-sm btn-primary"
+                            >
+                              View Result
+                            </Link>
+                            <Link
+                              to={`/quiz/leaderboard/${quiz._id}`}
+                              className="btn btn-sm btn-primary"
+                            >
+                              Leaderboard
+                            </Link>
+                          </div>
                         </div>
                       </div>
                     </div>

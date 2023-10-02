@@ -2,7 +2,16 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { Routes, Route } from "react-router-dom";
-import { Sign, Home, NoPage, Admin, CreateQuiz, Quiz, Result } from "./pages";
+import {
+  Sign,
+  Home,
+  NoPage,
+  Admin,
+  CreateQuiz,
+  Quiz,
+  Result,
+  Leaderboard,
+} from "./pages";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -43,26 +52,21 @@ function App() {
     };
     const fetchQuizzes = async () => {
       try {
-        const token = localStorage.getItem("token");
         const { data } = await axios.get(
-          `${process.env.REACT_APP_SERVER_ROUTE}/quiz`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
+          `${process.env.REACT_APP_SERVER_ROUTE}/quiz`
         );
         dispatch(quizActions.setQuiz(data));
         setIsLoading(false);
       } catch (err) {
         console.log(err);
         alert(err?.response?.data.message || err.message);
+        setIsLoading(false);
       }
     };
+    fetchQuizzes();
     const token = localStorage.getItem("token");
     if (token) {
       fetchUser();
-      fetchQuizzes();
     } else {
       navigate("/sign");
     }
@@ -84,11 +88,10 @@ function App() {
         }
       });
     };
-    if (quizzes) {
+    if (quizzes && usrDetails) {
       filterQuizzes();
     }
-    console.log(quizzes);
-  }, [quizzes]);
+  }, [quizzes, usrDetails]);
 
   return (
     <>
@@ -99,6 +102,7 @@ function App() {
           <Route path="/admin" element={<Admin />} />
           <Route path="/quiz/new" element={<CreateQuiz />} />
           <Route path="/quiz/:id" element={<Quiz />} />
+          <Route path="/quiz/leaderboard/:id" element={<Leaderboard />} />
           <Route path="/quiz/result/:id" element={<Result />} />
           <Route path="*" element={<NoPage />} />
         </Routes>

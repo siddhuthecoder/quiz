@@ -94,7 +94,11 @@ export default function Quiz() {
           quizResult: {
             name: usrDetails.name,
             email: usrDetails.email,
+            totalMarks: tm,
             marks: m,
+            crctAns: ca,
+            answeredQsn: aq,
+            tq: correctOptions.length,
           },
         },
         {
@@ -126,8 +130,6 @@ export default function Quiz() {
         });
         setQuizData(data);
         setIsQuiz(true);
-        alert("You already attempted this quiz");
-        navigate("/");
       } catch (error) {
         alert(error?.response?.data.message || error.message);
         navigate("/");
@@ -144,11 +146,15 @@ export default function Quiz() {
     ) {
       let isValid = true;
       quizData.results.forEach((result) => {
+        console.log(result);
+        console.log(result.email);
+        console.log(usrDetails.email);
         if (result.email === usrDetails.email) {
           isValid = false;
         }
       });
       if (!isValid) {
+        console.log("Invalid");
         alert("You already attempted this quiz");
         navigate("/");
       } else {

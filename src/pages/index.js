@@ -4,4 +4,5 @@ export { default as NoPage } from "./NoPage";
 export { default as Admin } from "./Admin";
 export { default as CreateQuiz } from "./CreateQuiz";
 export { default as Quiz } from "./Quiz";
+export { default as Leaderboard } from "./Leaderboard";
 export { default as Result } from "./Result";

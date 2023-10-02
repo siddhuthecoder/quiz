@@ -38,6 +38,21 @@ export default function CreateQuiz() {
     }
   }, []);
 
+  useEffect(() => {
+    if (currentQsn) {
+      setAddQuestion({
+        question: currentQsn.question,
+        option1: currentQsn.option1,
+        option2: currentQsn.option2,
+        option3: currentQsn.option3,
+        option4: currentQsn.option4,
+        correctOption: currentQsn.correctOption,
+        value: currentQsn.value,
+        img: currentQsn.img,
+      });
+    }
+  }, [currentQsn]);
+
   const handleSubmit = async (e) => {
     setIsLoading(true);
     e.preventDefault();
@@ -70,6 +85,11 @@ export default function CreateQuiz() {
       }
     }
     setIsLoading(false);
+  };
+
+  const deleteQsn = (qsnq) => {
+    const updatedQuestions = questions.filter((qsn) => qsn.question !== qsnq);
+    setQuestions(updatedQuestions);
   };
 
   return (
@@ -288,10 +308,41 @@ export default function CreateQuiz() {
                 <h5>Questions</h5>
               </div>
               {questions.map((q, index) => (
-                <div key={index} style={{ width: "100%" }}>
-                  <p className="mx-2">
+                <div
+                  key={index}
+                  style={{ width: "100%" }}
+                  className="d-flex justify-content-between align-items-center"
+                >
+                  <p className="mx-2 mb-0">
                     {index + 1}. {q.question}
                   </p>
+                  <div className="d-flex gap-2">
+                    <button
+                      className="btn mr-2"
+                      style={{ padding: "1px 7px" }}
+                      onClick={() => {
+                        setCurrentQsn(q);
+                        deleteQsn(q.question);
+                      }}
+                    >
+                      <i
+                        style={{ fontSize: "15px" }}
+                        className="bi bi-pencil-square"
+                      ></i>
+                    </button>
+                    <button
+                      className="btn"
+                      style={{ padding: "1px 7px" }}
+                      onClick={() => deleteQsn(q.question)}
+                    >
+                      <i
+                        style={{
+                          fontSize: "15px",
+                        }}
+                        className="bi bi-trash3"
+                      ></i>
+                    </button>
+                  </div>
                 </div>
               ))}
             </>
