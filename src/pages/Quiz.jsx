@@ -238,12 +238,14 @@ export default function Quiz() {
                           padding: "0px 10px",
                         }}
                       >
-                        <img
-                          src={quizData.quizQuestions[questionNo - 1].img}
-                          alt="quesiton-img"
-                          style={{ width: "50%" }}
-                          className="img-container"
-                        />
+                        {quizData.quizQuestions[questionNo - 1].img !== "" && (
+                          <img
+                            src={quizData.quizQuestions[questionNo - 1].img}
+                            alt="quesiton-img"
+                            style={{ width: "50%" }}
+                            className="img-container"
+                          />
+                        )}
                       </div>
                       <label htmlFor={`qans-${questionNo}-1`}>
                         <input

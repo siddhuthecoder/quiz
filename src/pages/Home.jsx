@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { userActions } from "../store/userSlice";
 import { Quizzes, Dashboard, TestUpdates, Results } from "../components";
+import logo from "../images/logo.png";
 
 export default function Home() {
   const isUser = useSelector((state) => state.user.isUser);
@@ -37,8 +38,39 @@ export default function Home() {
   return (
     <>
       <header className="sides">
-        <i className="bi bi-list d-lg-none" onClick={navToggle}></i>
-        <h2>Quiz Logo</h2>
+        <div className="w-100 d-flex justify-content-between py-1">
+          <div
+            style={{ height: "55px" }}
+            className="d-flex align-items-center logo-thing"
+          >
+            <i className="bi bi-list d-lg-none" onClick={navToggle}></i>
+            <img
+              src={logo}
+              alt="quiz logo"
+              className="p-2"
+              style={{ height: "100%" }}
+            />
+          </div>
+          <div className="d-flex align-items-center">
+            <div
+              style={{
+                width: "30px",
+                height: "30px",
+                borderRadius: "50%",
+                backgroundColor: "#000",
+                color: "white",
+                cursor: "pointer",
+              }}
+              title={userData.name}
+              className="d-flex justify-content-center align-items-center"
+            >
+              <b>{userData.name.charAt(0)}</b>
+            </div>
+            <button className="btn d-none d-md-block" onClick={logout}>
+              <b>Logout</b>
+            </button>
+          </div>
+        </div>
       </header>
 
       <aside className="sidebar" ref={sideBar}>
@@ -79,14 +111,18 @@ export default function Home() {
           >
             <i className="bi bi-easel"></i>Results
           </li>
-          <div className="log-out" title="Log Out" onClick={logout}>
+          <div
+            className="log-out d-md-none d-flex"
+            title="Log Out"
+            onClick={logout}
+          >
             {userData?.name}
             &nbsp;<i className="bi bi-box-arrow-in-right"></i>
           </div>
         </ul>
       </aside>
 
-      <main className="sides-main">
+      <main className="sides-main" style={{ background: "#ECF0F5" }}>
         {contentNumber === 1 && (
           <>
             <Dashboard />

@@ -14,7 +14,7 @@ const Quizzes = () => {
           {liveQuizzes.length > 0 && liveQuizzes && (
             <>
               <div className="quiz-sec">
-                <h4>Live Quizzes</h4>
+                <h4 style={{ color: "#006996" }}>Live Quizzes</h4>
                 <div className="my-4 d-flex flex-wrap gap-4">
                   {liveQuizzes.map((quiz) => {
                     return (
@@ -25,7 +25,7 @@ const Quizzes = () => {
                             <p className="card-text">{quiz.quizDesc}</p>
                             <Link
                               to={`/quiz/${quiz._id}`}
-                              className="btn btn-sm btn-primary"
+                              className="btn btn-sm btn-outline-primary"
                             >
                               Attempt Now
                             </Link>
@@ -40,7 +40,7 @@ const Quizzes = () => {
           )}
           {attemptedQuiz && attemptedQuiz.length > 0 && (
             <div className="quiz-sec">
-              <h4>Attempted Quizzes</h4>
+              <h4 style={{ color: "#006996" }}>Attempted Quizzes</h4>
               <div className="my-4 d-flex flex-wrap gap-4">
                 {attemptedQuiz.map((quiz) => {
                   return (
@@ -52,13 +52,13 @@ const Quizzes = () => {
                           <div className="d-flex gap-3">
                             <Link
                               to={`/quiz/result/${quiz._id}`}
-                              className="btn btn-sm btn-primary"
+                              className="btn btn-sm btn-outline-primary"
                             >
                               View Result
                             </Link>
                             <Link
                               to={`/quiz/leaderboard/${quiz._id}`}
-                              className="btn btn-sm btn-primary"
+                              className="btn btn-sm btn-outline-primary"
                             >
                               Leaderboard
                             </Link>
@@ -71,7 +71,7 @@ const Quizzes = () => {
               </div>
             </div>
           )}
-          {liveQuizzes.length > 0 && attemptedQuiz.length > 0 && (
+          {liveQuizzes.length === 0 && attemptedQuiz.length === 0 && (
             <>
               <div style={{ width: "100%", height: "calc(100% - 70px)" }}>
                 <h5>No Quizzes Found</h5>
