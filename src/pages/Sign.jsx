@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router";
 import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { userActions } from "../store/userSlice";
+import { toast } from "react-hot-toast";
 
 import Login from "../images/log.svg";
 import Register from "../images/register.svg";
 
 export default function Sign() {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [isSignUpMode, setIsSignUpMode] = useState(false);
   const [isLoding, setIsLoading] = useState(false);
@@ -17,13 +17,6 @@ export default function Sign() {
     email: "",
     password: "",
   });
-  const isUser = useSelector((state) => state.user.isUser);
-
-  useEffect(() => {
-    if (isUser) {
-      navigate("/");
-    }
-  }, [isUser, navigate]);
 
   const toggleMode = () => {
     setIsSignUpMode((prevMode) => !prevMode);
@@ -46,20 +39,22 @@ export default function Sign() {
         `${process.env.REACT_APP_SERVER_ROUTE}${endpoint}`,
         postData
       );
+      // dispatch(fetchQuizzes(response.data.token));
       dispatch(userActions.setUser(response.data.user));
       localStorage.setItem("token", response.data.token);
-      if (response.data.user.name === process.env.REACT_APP_ADMIN) {
+      toast.success("Logged in successfully");
+      dispatch(userActions.setIsUser(true));
+      if (
+        response.data.user.name === process.env.REACT_APP_ADMIN &&
+        response.data.user.email === process.env.REACT_APP_ADMIN_EMAIL
+      ) {
         dispatch(userActions.setIsAdmin(true));
-        navigate("/admin");
-      } else {
-        dispatch(userActions.setIsUser(true));
-        navigate("/");
       }
+      window.Location.reload();
     } catch (error) {
-      console.error(error);
       const errorMessage =
         error?.response?.data.message || "An error occurred. Please try again.";
-      alert(errorMessage);
+      toast.error(errorMessage);
       setFormData({
         name: "",
         email: "",

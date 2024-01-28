@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams, Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import logo from "../images/logo.png";
-import test from "../images/test.png";
+import Header from "../components/result/Header";
 
 export default function Leaderboard() {
-  const navigate = useNavigate();
   const quizzes = useSelector((state) => state.quiz.quizzes);
   const user = useSelector((state) => state.user.userDetails);
   const { id } = useParams();
@@ -17,7 +15,7 @@ export default function Leaderboard() {
       const newQuizData = quizzes.find((quiz) => quiz._id === id) || {};
       setQuizData(newQuizData);
     }
-  }, [quizzes, id]);
+  }, [quizzes, id, user]);
 
   useEffect(() => {
     if (quizData) {
@@ -28,11 +26,12 @@ export default function Leaderboard() {
         }
       });
     }
-  }, [quizData]);
+  }, [quizData, user.email]);
 
   return (
     <>
-      {/* <div className="result-container my-5">
+      <Header quizData={quizData} />
+      <div className="result-container my-5" style={{ backgroundColor: "#" }}>
         <h5 className="text-center py-3">{quizData?.quizName} Result</h5>
         <h6 className="text-center pb-4">{user.name}</h6>
         <div className="pb-4">
@@ -95,24 +94,7 @@ export default function Leaderboard() {
             </Link>
           </div>
         </div>
-      </div> */}
-      <header
-        style={{ height: "60px", position: "sticky", top: "0", width: "100%" }}
-        className="d-flex justify-content-between px-1 px-sm-2"
-      >
-        <img src={logo} alt="sdcac quiz portal" className="py-3 py-sm-2" />
-        <div className="d-flex gap-2 align-items-center">
-          <img src={test} alt="test" style={{ height: "30px" }} />
-          <h5 style={{ color: "#0073A5" }} className="mb-0">
-            {quizData?.quizName}
-          </h5>
-        </div>
-      </header>
-      <main
-        style={{ backgroundColor: "#ECF0F5", minHeight: "calc(100vh - 60px)" }}
-      >
-        yash
-      </main>
+      </div>
     </>
   );
 }

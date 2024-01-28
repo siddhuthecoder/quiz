@@ -13,116 +13,117 @@ import {
   Leaderboard,
 } from "./pages";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { userActions } from "./store/userSlice";
-import { quizActions } from "./store/quizSlice";
+import { useEffect } from "react";
+import { fetchUser } from "./store/userSlice";
+import { fetchQuizzes, quizActions } from "./store/quizSlice";
 import { useNavigate } from "react-router-dom";
+import { Toaster, toast } from "react-hot-toast";
 
 function App() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(true);
+  const userStatus = useSelector((state) => state.user.status);
+  const userError = useSelector((state) => state.user.error);
+  const quizError = useSelector((state) => state.quiz.error);
+  const quizStatus = useSelector((state) => state.user.status);
+
   const quizzes = useSelector((state) => state.quiz.quizzes);
   const usrDetails = useSelector((state) => state.user.userDetails);
 
+  const isAdmin = useSelector((state) => state.user.isAdmin);
+  const isUser = useSelector((state) => state.user.isUser);
+
   useEffect(() => {
-    const fetchUser = async () => {
-      const token = localStorage.getItem("token");
-      const base_url = process.env.REACT_APP_SERVER_ROUTE;
-      try {
-        const { data } = await axios.get(`${base_url}/user`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        dispatch(userActions.setUser(data.user));
-        if (data.user.name === process.env.REACT_APP_ADMIN) {
-          dispatch(userActions.setIsAdmin(true));
-          navigate("/admin");
-        } else {
-          dispatch(userActions.setIsUser(true));
-        }
-      } catch (error) {
-        console.log(error);
-        alert(error?.response?.data || error.message);
-        setIsLoading(false);
-        navigate("/sign");
+    if (isUser) {
+      if (isAdmin) {
+        navigate("/admin");
+      } else {
+        navigate("/");
       }
-    };
-    const fetchQuizzes = async () => {
-      try {
-        const { data } = await axios.get(
-          `${process.env.REACT_APP_SERVER_ROUTE}/quiz`
-        );
-        dispatch(quizActions.setQuiz(data));
-        setIsLoading(false);
-      } catch (err) {
-        console.log(err);
-        alert(err?.response?.data.message || err.message);
-        setIsLoading(false);
-      }
-    };
-    fetchQuizzes();
-    const token = localStorage.getItem("token");
-    if (token) {
-      fetchUser();
     } else {
       navigate("/sign");
     }
-  }, []);
+  }, [isUser, isAdmin, navigate]);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    dispatch(fetchQuizzes(token));
+    dispatch(fetchUser(token));
+  }, [dispatch, navigate]);
 
   useEffect(() => {
     const filterQuizzes = () => {
-      quizzes.map((quiz) => {
-        let islive = true;
-        quiz.results.map((result) => {
+      quizzes.forEach((quiz) => {
+        let isLive = true;
+        quiz.results.forEach((result) => {
           if (result.email === usrDetails.email) {
-            islive = false;
+            isLive = false;
           }
         });
-        if (islive) {
+        if (isLive) {
           dispatch(quizActions.addLive(quiz));
         } else {
           dispatch(quizActions.addAttempted(quiz));
         }
       });
     };
-    if (quizzes && usrDetails) {
+
+    if (quizzes && quizzes.length !== 0 && usrDetails) {
       filterQuizzes();
     }
-  }, [quizzes, usrDetails]);
+  }, [quizzes, usrDetails, dispatch]);
 
-  return (
-    <>
-      {!isLoading ? (
+  useEffect(() => {
+    if (userError && userError !== "") {
+      if (userError === "No Token found" || quizError === "No Token Found") {
+        navigate("/sign");
+      } else if (
+        userError === "Invalid Session" ||
+        quizError === "Invalid Session"
+      ) {
+        toast.error("Invalid Session");
+        localStorage.removeItem("token");
+        navigate("/sign");
+      }
+    }
+  }, [userError, quizError, navigate]);
+
+  // Preloader here
+  if (quizStatus === "loading" || userStatus === "loading") {
+    return (
+      <div
+        style={{
+          width: "100%",
+          minHeight: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <div className="spinner-border" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    );
+  }
+
+  if (userStatus === "loaded" && quizStatus === "loaded") {
+    return (
+      <>
+        <Toaster />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/sign" element={<Sign />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/quiz/new" element={<CreateQuiz />} />
           <Route path="/quiz/:id" element={<Quiz />} />
           <Route path="/quiz/leaderboard/:id" element={<Leaderboard />} />
           <Route path="/quiz/result/:id" element={<Result />} />
+          <Route path="/sign" element={<Sign />} />
           <Route path="*" element={<NoPage />} />
         </Routes>
-      ) : (
-        <div
-          style={{
-            width: "100%",
-            minHeight: "100vh",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <div className="spinner-border" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </div>
-        </div>
-      )}
-    </>
-  );
+      </>
+    );
+  }
 }
 
 export default App;

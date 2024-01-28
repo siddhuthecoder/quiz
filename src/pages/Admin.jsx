@@ -20,6 +20,12 @@ export default function Admin() {
     }
   }, [quizzes]);
 
+  useEffect(() => {
+    if (!isAdmin) {
+      navigate("/");
+    }
+  }, [navigate, isAdmin]);
+
   return (
     <>
       <Header />
@@ -34,7 +40,7 @@ export default function Admin() {
                 localStorage.clear();
                 dispatch(userActions.setIsAdmin(false));
                 dispatch(userActions.setUser(null));
-                window.location.reload();
+                navigate("/sign");
               }}
             >
               Logout

@@ -18,7 +18,7 @@ const QuizTimer = ({ min, onTimeUp }) => {
     return () => {
       clearInterval(IntervalId);
     };
-  }, [secondsRemaining]);
+  }, [secondsRemaining, onTimeUp]);
 
   const formattedMinutes = String(Math.floor(secondsRemaining / 60)).padStart(
     2,
@@ -136,7 +136,7 @@ export default function Quiz() {
       }
     };
     fetchQuiz();
-  }, []);
+  }, [id, navigate]);
 
   useEffect(() => {
     if (
@@ -169,7 +169,7 @@ export default function Quiz() {
         handleMarkingChange(0, "Not Answered");
       }
     }
-  }, [quizData]);
+  }, [quizData, navigate, usrDetails.email]);
 
   return (
     <>
