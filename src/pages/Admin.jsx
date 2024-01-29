@@ -38,9 +38,7 @@ export default function Admin() {
               style={{ fontWeight: "550" }}
               onClick={() => {
                 localStorage.clear();
-                dispatch(userActions.setIsAdmin(false));
-                dispatch(userActions.setUser(null));
-                navigate("/sign");
+                window.location.reload();
               }}
             >
               Logout

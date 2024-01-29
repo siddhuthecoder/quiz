@@ -1,15 +1,13 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import { userActions } from "../store/userSlice";
 import { toast } from "react-hot-toast";
 
 import Login from "../images/log.svg";
 import Register from "../images/register.svg";
 
 export default function Sign() {
-  const dispatch = useDispatch();
   const [isSignUpMode, setIsSignUpMode] = useState(false);
   const [isLoding, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -54,16 +52,9 @@ export default function Sign() {
         postData
       );
       // dispatch(fetchQuizzes(response.data.token));
-      dispatch(userActions.setUser(response.data.user));
+      // dispatch(userActions.setUser(response.data.user));
       localStorage.setItem("token", response.data.token);
       toast.success("Logged in successfully");
-      dispatch(userActions.setIsUser(true));
-      if (
-        response.data.user.name === process.env.REACT_APP_ADMIN &&
-        response.data.user.email === process.env.REACT_APP_ADMIN_EMAIL
-      ) {
-        dispatch(userActions.setIsAdmin(true));
-      }
       window.Location.reload();
     } catch (error) {
       const errorMessage =
@@ -76,6 +67,7 @@ export default function Sign() {
       });
     } finally {
       setIsLoading(false);
+      window.location.reload();
     }
   };
 
