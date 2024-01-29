@@ -817,7 +817,7 @@ header.sides {
     justify-content: space-between;
   }
   header.sides > * {
-    margin: 0px 20px;
+    margin: 0px 5px;
   }
   .sidebar {
     left: -250px;

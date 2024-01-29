@@ -20,6 +20,12 @@ export default function Admin() {
     }
   }, [quizzes]);
 
+  useEffect(() => {
+    if (!isAdmin) {
+      navigate("/");
+    }
+  }, [navigate, isAdmin]);
+
   return (
     <>
       <Header />
@@ -32,8 +38,6 @@ export default function Admin() {
               style={{ fontWeight: "550" }}
               onClick={() => {
                 localStorage.clear();
-                dispatch(userActions.setIsAdmin(false));
-                dispatch(userActions.setUser(null));
                 window.location.reload();
               }}
             >

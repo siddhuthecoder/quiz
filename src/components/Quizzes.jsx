@@ -1,15 +1,24 @@
-import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 const Quizzes = () => {
   const liveQuizzes = useSelector((state) => state.quiz.liveQuizzes);
   const attemptedQuiz = useSelector((state) => state.quiz.attemptedQuizzes);
-  const [isLoading, setIsLoading] = useState(true);
+  const quizzes = useSelector((state) => state.quiz.quizzes);
+  const quizzesStatus = useSelector((state) => state.quiz.status);
 
   return (
     <>
-      {isLoading ? (
+      {quizzesStatus === "loading" ? (
+        <div
+          style={{ width: "100%", minHeight: "300px", marginTop: "100px" }}
+          className="d-flex justify-content-center aign-items-center"
+        >
+          <div className="spinner-border" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      ) : (
         <>
           {liveQuizzes.length > 0 && liveQuizzes && (
             <>
@@ -71,7 +80,7 @@ const Quizzes = () => {
               </div>
             </div>
           )}
-          {liveQuizzes.length === 0 && attemptedQuiz.length === 0 && (
+          {quizzes && quizzes.length === 0 && (
             <>
               <div style={{ width: "100%", height: "calc(100% - 70px)" }}>
                 <h5>No Quizzes Found</h5>
@@ -79,15 +88,6 @@ const Quizzes = () => {
             </>
           )}
         </>
-      ) : (
-        <div
-          style={{ width: "100%", minHeight: "300px", marginTop: "100px" }}
-          className="d-flex justify-content-center aign-items-center"
-        >
-          <div className="spinner-border" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </div>
-        </div>
       )}
     </>
   );

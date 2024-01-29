@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams, Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Header from "../components/result/Header";
 
 export default function Leaderboard() {
-  const navigate = useNavigate();
   const quizzes = useSelector((state) => state.quiz.quizzes);
-  const user = useSelector((state) => state.user.userDetails);
+  // const user = useSelector((state) => state.user.userDetails);
   const { id } = useParams();
   const [quizData, setQuizData] = useState({});
   const [sortedResults, setSortedResults] = useState([]);
@@ -24,6 +24,7 @@ export default function Leaderboard() {
 
   return (
     <>
+      <Header quizData={quizData} />
       <div className="result-container my-5">
         <h4 className="text-center py-3">
           {quizData.quizName || "Quiz Not Found"} Leaderboard

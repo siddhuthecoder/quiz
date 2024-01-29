@@ -1,15 +1,13 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
-import { userActions } from "../store/userSlice";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router";
+import { toast } from "react-hot-toast";
 
 import Login from "../images/log.svg";
 import Register from "../images/register.svg";
 
 export default function Sign() {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
   const [isSignUpMode, setIsSignUpMode] = useState(false);
   const [isLoding, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -17,17 +15,24 @@ export default function Sign() {
     email: "",
     password: "",
   });
-  const isUser = useSelector((state) => state.user.isUser);
-
-  useEffect(() => {
-    if (isUser) {
-      navigate("/");
-    }
-  }, [isUser, navigate]);
 
   const toggleMode = () => {
     setIsSignUpMode((prevMode) => !prevMode);
   };
+
+  const navigate = useNavigate();
+  const isAdmin = useSelector((state) => state.user.isAdmin);
+  const isUser = useSelector((state) => state.user.isUser);
+
+  useEffect(() => {
+    if (isUser) {
+      if (isAdmin) {
+        navigate("/admin");
+      } else {
+        navigate("/");
+      }
+    }
+  }, [isUser, isAdmin, navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -46,20 +51,15 @@ export default function Sign() {
         `${process.env.REACT_APP_SERVER_ROUTE}${endpoint}`,
         postData
       );
-      dispatch(userActions.setUser(response.data.user));
+      // dispatch(fetchQuizzes(response.data.token));
+      // dispatch(userActions.setUser(response.data.user));
       localStorage.setItem("token", response.data.token);
-      if (response.data.user.name === process.env.REACT_APP_ADMIN) {
-        dispatch(userActions.setIsAdmin(true));
-        navigate("/admin");
-      } else {
-        dispatch(userActions.setIsUser(true));
-        navigate("/");
-      }
+      toast.success("Logged in successfully");
+      window.Location.reload();
     } catch (error) {
-      console.error(error);
       const errorMessage =
         error?.response?.data.message || "An error occurred. Please try again.";
-      alert(errorMessage);
+      toast.error(errorMessage);
       setFormData({
         name: "",
         email: "",
@@ -67,6 +67,7 @@ export default function Sign() {
       });
     } finally {
       setIsLoading(false);
+      window.location.reload();
     }
   };
 

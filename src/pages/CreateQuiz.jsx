@@ -36,7 +36,7 @@ export default function CreateQuiz() {
     if (!isAdmin) {
       navigate("/admin");
     }
-  }, []);
+  }, [navigate, isAdmin]);
 
   useEffect(() => {
     if (currentQsn) {
