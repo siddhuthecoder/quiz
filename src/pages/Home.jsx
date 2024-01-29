@@ -1,5 +1,6 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { Quizzes, Dashboard, TestUpdates, Results } from "../components";
 import HomeHeader from "../components/Home/HomeHeader";
 import HomeAside from "../components/Home/HomeAside";
@@ -17,6 +18,20 @@ export default function Home() {
     localStorage.clear();
     window.location.reload();
   };
+
+  const navigate = useNavigate();
+  const isAdmin = useSelector((state) => state.user.isAdmin);
+  const isUser = useSelector((state) => state.user.isUser);
+
+  useEffect(() => {
+    if (isUser) {
+      if (isAdmin) {
+        navigate("/admin");
+      }
+    } else {
+      navigate("/sign");
+    }
+  }, [isUser, isAdmin, navigate]);
 
   return (
     <>

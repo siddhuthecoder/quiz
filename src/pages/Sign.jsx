@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { useNavigate } from "react-router";
+import { useEffect, useState } from "react";
 import axios from "axios";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router";
 import { userActions } from "../store/userSlice";
 import { toast } from "react-hot-toast";
 
@@ -21,6 +21,20 @@ export default function Sign() {
   const toggleMode = () => {
     setIsSignUpMode((prevMode) => !prevMode);
   };
+
+  const navigate = useNavigate();
+  const isAdmin = useSelector((state) => state.user.isAdmin);
+  const isUser = useSelector((state) => state.user.isUser);
+
+  useEffect(() => {
+    if (isUser) {
+      if (isAdmin) {
+        navigate("/admin");
+      } else {
+        navigate("/");
+      }
+    }
+  }, [isUser, isAdmin, navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

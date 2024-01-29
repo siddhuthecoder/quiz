@@ -22,7 +22,6 @@ export default function Leaderboard() {
       quizData.results.forEach((result) => {
         if (result.email === user.email) {
           setCurrentUserResult(result);
-          console.log(result);
         }
       });
     }

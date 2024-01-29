@@ -30,26 +30,14 @@ function App() {
   const quizzes = useSelector((state) => state.quiz.quizzes);
   const usrDetails = useSelector((state) => state.user.userDetails);
 
-  const isAdmin = useSelector((state) => state.user.isAdmin);
-  const isUser = useSelector((state) => state.user.isUser);
-
   useEffect(() => {
-    if (isUser) {
-      if (isAdmin) {
-        navigate("/admin");
-      } else {
-        navigate("/");
-      }
-    } else {
-      navigate("/sign");
-    }
-  }, [isUser, isAdmin, navigate]);
-
-  useEffect(() => {
+    console.log("yash");
     const token = localStorage.getItem("token");
-    dispatch(fetchQuizzes(token));
-    dispatch(fetchUser(token));
-  }, [dispatch, navigate]);
+    if (quizStatus === "idle" || userStatus === "idle") {
+      dispatch(fetchQuizzes(token));
+      dispatch(fetchUser(token));
+    }
+  }, [dispatch, navigate, quizStatus, userStatus]);
 
   useEffect(() => {
     const filterQuizzes = () => {
