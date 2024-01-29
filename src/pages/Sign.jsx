@@ -60,6 +60,8 @@ export default function Sign() {
       const errorMessage =
         error?.response?.data.message || "An error occurred. Please try again.";
       toast.error(errorMessage);
+      console.log(2);
+      console.log(error);
       setFormData({
         name: "",
         email: "",
