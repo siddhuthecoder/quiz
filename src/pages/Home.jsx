@@ -24,12 +24,11 @@ export default function Home() {
   const isUser = useSelector((state) => state.user.isUser);
 
   useEffect(() => {
-    if (isUser) {
-      if (isAdmin) {
-        navigate("/admin");
-      }
-    } else {
+    if (!isUser) {
       navigate("/sign");
+    }
+    if (isAdmin) {
+      navigate("/admin");
     }
   }, [isUser, isAdmin, navigate]);
 

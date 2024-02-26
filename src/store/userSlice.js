@@ -25,6 +25,7 @@ const userSlice = createSlice({
   name: "user",
   initialState: {
     isUser: false,
+    neitherBoth: false,
     userDetails: null,
     isAdmin: false,
     status: "idle",

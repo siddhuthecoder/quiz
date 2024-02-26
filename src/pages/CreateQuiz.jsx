@@ -33,11 +33,11 @@ export default function CreateQuiz() {
 
   //use Effects
   useEffect(() => {
+    console.log(isAdmin);
     if (!isAdmin) {
-      navigate("/admin");
+      navigate("/sign");
     }
   }, [navigate, isAdmin]);
-  
 
   useEffect(() => {
     if (currentQsn) {

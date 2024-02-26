@@ -4,7 +4,6 @@ import { Button, Header } from "../components";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { quizActions } from "../store/quizSlice";
-import { userActions } from "../store/userSlice";
 
 export default function Admin() {
   const dispatch = useDispatch();

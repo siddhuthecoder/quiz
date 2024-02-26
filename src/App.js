@@ -1,7 +1,7 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import {
   Sign,
   Home,
@@ -14,27 +14,28 @@ import {
 } from "./pages";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { fetchUser } from "./store/userSlice";
+import { fetchUser, userActions } from "./store/userSlice";
 import { fetchQuizzes, quizActions } from "./store/quizSlice";
-import { useNavigate } from "react-router-dom";
 import { Toaster, toast } from "react-hot-toast";
 
 function App() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const user = useSelector((state) => state.user.userDetails);
   const userStatus = useSelector((state) => state.user.status);
   const userError = useSelector((state) => state.user.error);
   const quizError = useSelector((state) => state.quiz.error);
   const quizStatus = useSelector((state) => state.user.status);
 
+  const isUser = useSelector((state) => state.user.isUser);
+  const isAdmin = useSelector((state) => state.user.isAdmin);
+
   const quizzes = useSelector((state) => state.quiz.quizzes);
   const usrDetails = useSelector((state) => state.user.userDetails);
 
   useEffect(() => {
-    console.log("hi this is siddhu from srikakualm");
     const token = localStorage.getItem("token");
     if (quizStatus === "idle" || userStatus === "idle") {
-      dispatch(fetchQuizzes(token));
       dispatch(fetchUser(token));
     }
   }, [dispatch, navigate, quizStatus, userStatus]);
@@ -62,6 +63,28 @@ function App() {
   }, [quizzes, usrDetails, dispatch]);
 
   useEffect(() => {
+    if (user) {
+      if (user.email === process.env.REACT_APP_ADMIN_EMAIL) {
+        dispatch(userActions.setIsAdmin(true));
+      } else {
+        dispatch(userActions.setIsUser(true));
+      }
+      const token = localStorage.getItem("token");
+      dispatch(fetchQuizzes(token));
+    }
+  }, [user, dispatch]);
+
+  useEffect(() => {
+    console.log(isAdmin, isUser);
+    if (isAdmin) {
+      navigate("/admin");
+    }
+    if (!isAdmin && !isUser) {
+      navigate("/sign");
+    }
+  }, [isAdmin, isUser, navigate]);
+
+  useEffect(() => {
     if (userError && userError !== "") {
       if (userError === "No Token found" || quizError === "No Token Found") {
         navigate("/sign");
@@ -70,7 +93,6 @@ function App() {
         quizError === "Invalid Session"
       ) {
         toast.error("Invalid Session");
-        console.log(1);
         localStorage.removeItem("token");
         navigate("/sign");
       }
@@ -116,4 +138,3 @@ function App() {
 }
 
 export default App;
-//hi this is siddhu

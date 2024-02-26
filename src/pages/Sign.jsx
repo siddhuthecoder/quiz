@@ -1,13 +1,18 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 
 import Login from "../images/log.svg";
 import Register from "../images/register.svg";
+import { fetchQuizzes } from "../store/quizSlice";
+import { userActions } from "../store/userSlice";
 
 export default function Sign() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const [isSignUpMode, setIsSignUpMode] = useState(false);
   const [isLoding, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -19,18 +24,15 @@ export default function Sign() {
   const toggleMode = () => {
     setIsSignUpMode((prevMode) => !prevMode);
   };
-
-  const navigate = useNavigate();
   const isAdmin = useSelector((state) => state.user.isAdmin);
   const isUser = useSelector((state) => state.user.isUser);
 
   useEffect(() => {
+    if (isAdmin) {
+      navigate("/admin");
+    }
     if (isUser) {
-      if (isAdmin) {
-        navigate("/admin");
-      } else {
-        navigate("/");
-      }
+      navigate("/");
     }
   }, [isUser, isAdmin, navigate]);
 
@@ -51,16 +53,20 @@ export default function Sign() {
         `${process.env.REACT_APP_SERVER_ROUTE}${endpoint}`,
         postData
       );
-      // dispatch(fetchQuizzes(response.data.token));
-      // dispatch(userActions.setUser(response.data.user));
+      dispatch(fetchQuizzes(response.data.token));
+      dispatch(userActions.setUser(response.data.user));
       localStorage.setItem("token", response.data.token);
       toast.success("Logged in successfully");
-      window.Location.reload();
+      if (response.data.user.email === process.env.REACT_APP_ADMIN_EMAIL) {
+        dispatch(userActions.setIsAdmin(true));
+      } else {
+        dispatch(userActions.setIsUser(false));
+      }
+      window.location.reload();
     } catch (error) {
       const errorMessage =
         error?.response?.data.message || "An error occurred. Please try again.";
       toast.error(errorMessage);
-      console.log(2);
       console.log(error);
       setFormData({
         name: "",
@@ -69,7 +75,6 @@ export default function Sign() {
       });
     } finally {
       setIsLoading(false);
-      window.location.reload();
     }
   };
 
@@ -99,7 +104,7 @@ export default function Sign() {
                   <i className="fas fa-user"></i>
                   <input
                     required
-                    type="text"
+                    type="email"
                     placeholder="Email"
                     value={formData.email}
                     name="email"
