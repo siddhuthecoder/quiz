@@ -31,7 +31,7 @@ function App() {
   const usrDetails = useSelector((state) => state.user.userDetails);
 
   useEffect(() => {
-    console.log("yash");
+    console.log("hi this is siddhu from srikakualm");
     const token = localStorage.getItem("token");
     if (quizStatus === "idle" || userStatus === "idle") {
       dispatch(fetchQuizzes(token));
@@ -70,6 +70,7 @@ function App() {
         quizError === "Invalid Session"
       ) {
         toast.error("Invalid Session");
+        console.log(1);
         localStorage.removeItem("token");
         navigate("/sign");
       }
@@ -115,3 +116,4 @@ function App() {
 }
 
 export default App;
+//hi this is siddhu
