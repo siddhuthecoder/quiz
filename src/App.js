@@ -27,9 +27,6 @@ function App() {
   const quizError = useSelector((state) => state.quiz.error);
   const quizStatus = useSelector((state) => state.user.status);
 
-  const isUser = useSelector((state) => state.user.isUser);
-  const isAdmin = useSelector((state) => state.user.isAdmin);
-
   const quizzes = useSelector((state) => state.quiz.quizzes);
   const usrDetails = useSelector((state) => state.user.userDetails);
 
@@ -63,26 +60,18 @@ function App() {
   }, [quizzes, usrDetails, dispatch]);
 
   useEffect(() => {
-    if (user) {
+    if (user && user.email) {
       if (user.email === process.env.REACT_APP_ADMIN_EMAIL) {
+        dispatch(userActions.setIsUser(false));
         dispatch(userActions.setIsAdmin(true));
       } else {
+        dispatch(userActions.setIsAdmin(false));
         dispatch(userActions.setIsUser(true));
       }
-      const token = localStorage.getItem("token");
-      dispatch(fetchQuizzes(token));
     }
+    const token = localStorage.getItem("token");
+    dispatch(fetchQuizzes(token));
   }, [user, dispatch]);
-
-  useEffect(() => {
-    console.log(isAdmin, isUser);
-    if (isAdmin) {
-      navigate("/admin");
-    }
-    if (!isAdmin && !isUser) {
-      navigate("/sign");
-    }
-  }, [isAdmin, isUser, navigate]);
 
   useEffect(() => {
     if (userError && userError !== "") {

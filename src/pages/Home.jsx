@@ -24,13 +24,14 @@ export default function Home() {
   const isUser = useSelector((state) => state.user.isUser);
 
   useEffect(() => {
-    if (!isUser) {
-      navigate("/sign");
-    }
     if (isAdmin) {
       navigate("/admin");
     }
-  }, [isUser, isAdmin, navigate]);
+    if (!isAdmin && !isUser) {
+      navigate("/sign");
+    }
+    //eslint-disable-next-line
+  }, [isUser, isAdmin]);
 
   return (
     <>

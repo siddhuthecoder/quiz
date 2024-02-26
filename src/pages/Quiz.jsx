@@ -108,12 +108,10 @@ export default function Quiz() {
         }
       );
       dispatch(quizActions.removeLive(data._id));
-      console.log(data);
       dispatch(quizActions.addAttempted(data));
       dispatch(quizActions.updateQuiz(data));
       navigate(`/quiz/result/${id}`);
     } catch (error) {
-      console.log(error);
       alert(error?.response?.data.message || error.message);
     }
   };
@@ -146,15 +144,11 @@ export default function Quiz() {
     ) {
       let isValid = true;
       quizData.results.forEach((result) => {
-        console.log(result);
-        console.log(result.email);
-        console.log(usrDetails.email);
         if (result.email === usrDetails.email) {
           isValid = false;
         }
       });
       if (!isValid) {
-        console.log("Invalid");
         alert("You already attempted this quiz");
         navigate("/");
       } else {
