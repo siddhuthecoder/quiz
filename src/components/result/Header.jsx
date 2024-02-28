@@ -11,7 +11,7 @@ const Header = ({ quizData }) => {
     >
       <Link to="/" style={{ width: "60px", height: "60px" }}>
         <img
-          src={logo}
+          src={''}
           alt="quiz logo"
           style={{ height: "100%", width: "100%" }}
         />
