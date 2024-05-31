@@ -18,7 +18,7 @@ const HomeAside = ({
             navToggle();
           }}
         >
-          <i className="bi bi-clipboard-data"></i>Dashboard
+        <b> <i className="bi bi-clipboard-data"></i></b> Dashboard
         </li>
         <li
           className={contentNumber === 2 ? "nav-item active" : "nav-item"}
@@ -36,7 +36,7 @@ const HomeAside = ({
             navToggle();
           }}
         >
-          <i className="bi bi-card-list"></i>Test Updates
+        <i class="bi bi-bell"></i>Leaderboard
         </li>
         <li
           className={contentNumber === 4 ? "nav-item active" : "nav-item"}
@@ -45,7 +45,7 @@ const HomeAside = ({
             navToggle();
           }}
         >
-          <i className="bi bi-easel"></i>Results
+         <i class="bi bi-book"></i>Study Resources
         </li>
         <div
           className="log-out d-md-none d-flex"

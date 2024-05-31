@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 
-import Login from "../images/log.svg";
-import Register from "../images/register.svg";
+import Register from "../images/log.svg";
+import Login from "../images/register.svg";
 import { fetchQuizzes } from "../store/quizSlice";
 import { userActions } from "../store/userSlice";
 
@@ -100,7 +100,7 @@ export default function Sign() {
               >
                 <h2 className="title">Sign in</h2>
                 <div className="input-field">
-                  <i className="fas fa-user"></i>
+                <i class="bi bi-envelope-arrow-up-fill"></i>
                   <input
                     required
                     type="email"
@@ -111,7 +111,7 @@ export default function Sign() {
                   />
                 </div>
                 <div className="input-field">
-                  <i className="fas fa-lock"></i>
+                <i class="bi bi-unlock-fill"></i>
                   <input
                     required
                     type="password"
@@ -135,7 +135,7 @@ export default function Sign() {
               >
                 <h2 className="title">Sign up</h2>
                 <div className="input-field">
-                  <i className="fas fa-user"></i>
+                <i class="bi bi-person"></i>
                   <input
                     required
                     type="text"
@@ -146,7 +146,7 @@ export default function Sign() {
                   />
                 </div>
                 <div className="input-field">
-                  <i className="fas fa-envelope"></i>
+                <i class="bi bi-envelope-arrow-up-fill"></i>
                   <input
                     required
                     type="email"
@@ -157,7 +157,7 @@ export default function Sign() {
                   />
                 </div>
                 <div className="input-field">
-                  <i className="fas fa-lock"></i>
+                <i class="bi bi-unlock-fill"></i>
                   <input
                     required
                     type="password"
