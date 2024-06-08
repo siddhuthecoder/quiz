@@ -1,41 +1,70 @@
-// Dashboard Entries
 export const dashboardEntries = [
-    {
-      serialNo: 1,
-      title: "Introduction to Blockchain",
-      date: "2024-05-30",
-      postedBy: "John Doe",
-      visits: 150,
-    },
-    {
-      serialNo: 2,
-      title: "React.js for Beginners",
-      date: "2024-05-28",
-      postedBy: "Jane Smith",
-      visits: 200,
-    },
-    {
-      serialNo: 3,
-      title: "Advanced Node.js Techniques",
-      date: "2024-05-25",
-      postedBy: "Alice Johnson",
-      visits: 175,
-    },
-    {
-      serialNo: 4,
-      title: "UI/UX Design Principles",
-      date: "2024-05-20",
-      postedBy: "Bob Brown",
-      visits: 220,
-    },
-    {
-      serialNo: 5,
-      title: "Deploying with Docker",
-      date: "2024-05-15",
-      postedBy: "Charlie Davis",
-      visits: 190,
-    },
-  ];
+  {
+    serialNo: 1,
+    title: "A Comprehensive Examination of Emerging Technologies and Their Impacts on Modern Society",
+    date: "2024-06-01",
+    postedBy: "Emily White",
+    visits: 120,
+  },
+  {
+    serialNo: 2,
+    title: "Advanced React.js Concepts:  Applications with Redux, Hooks, Context API, and Server-Side  Techniques",
+    date: "2024-05-29",
+    postedBy: "Michael Johnson",
+    visits: 150,
+  },
+  {
+    serialNo: 3,
+    title: "Exploring Advanced Node.js Techniques : Leveraging Async/Await, Streams, and Worker Threads",
+    date: "2024-05-26",
+    postedBy: "Samantha Green",
+    visits: 110,
+  },
+  {
+    serialNo: 4,
+    title: "A Deep Dive into UI/UX Design Principles and Best Practices",
+    date: "2024-05-21",
+    postedBy: "Daniel Black",
+    visits: 130,
+  },
+  {
+    serialNo: 5,
+    title: "Mastering Docker Deployment Strategies",
+    date: "2024-05-16",
+    postedBy: "Olivia Brown",
+    visits: 140,
+  },
+  {
+    serialNo: 6,
+    title: "Understanding Artificial Intelligence in the Context of Modern Business",
+    date: "2024-05-10",
+    postedBy: "Ethan Smith",
+    visits: 100,
+  },
+  {
+    serialNo: 7,
+    title: "The Role of Machine Learning in Data-Driven Decision Making",
+    date: "2024-05-05",
+    postedBy: "Isabella Johnson",
+    visits: 90,
+  },
+  {
+    serialNo: 8,
+    title: "Navigating the Internet of Things Landscape",
+    date: "2024-04-30",
+    postedBy: "Lucas Davis",
+    visits: 80,
+  },
+  {
+    serialNo: 9,
+    title: "Securing Digital Assets in the Era of Cybersecurity",
+    date: "2024-04-25",
+    postedBy: "Sophia Wilson",
+    visits: 70,
+  },
+  
+];
+
   
   export const dashboardColumns = [
     {
@@ -58,6 +87,7 @@ export const dashboardEntries = [
       id: "visits",
       label: "Visits",
     },
+
   ];
   
   // Study Resources

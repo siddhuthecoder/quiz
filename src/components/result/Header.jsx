@@ -19,7 +19,7 @@ const Header = ({ quizData }) => {
       <div className="d-flex gap-2 align-items-center">
         <img src={test} alt="test" style={{ height: "30px" }} />
         <h5 style={{ color: "#0073A5" }} className="mb-0">
-          {quizData?.quizName}
+          {quizData?.quizName} kmdf
         </h5>
       </div>
     </header>

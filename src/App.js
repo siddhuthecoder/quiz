@@ -101,7 +101,7 @@ function App() {
         }}
       >
         <div className="spinner-border" role="status">
-          <span className="visually-hidden">Loading...</span>
+          <span className="visually-hidden">Loading😍...</span>
         </div>
       </div>
     );
@@ -110,6 +110,7 @@ function App() {
   if (userStatus === "loaded" && quizStatus === "loaded") {
     return (
       <>
+
         <Toaster />
         <Routes>
           <Route path="/" element={<Home />} />

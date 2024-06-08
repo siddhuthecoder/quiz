@@ -22,21 +22,38 @@ const Quizzes = () => {
         <>
           {liveQuizzes.length > 0 && liveQuizzes && (
             <>
-              <div className="quiz-sec">
+              <div className="quiz-sec ">
                 <h4 style={{ color: "#006996" }}>Live Quizzes</h4>
-                <div className="my-4 d-flex flex-wrap gap-4">
+               <div  className="my-4 d-flex flex-wrap gap-4" >
+
                   {liveQuizzes.map((quiz) => {
                     return (
                       <div key={quiz._id}>
-                        <div className="card" style={{ width: "18rem" }}>
+                    <div className="card" style={{
+      position: 'relative',
+      width: '350px',
+      maxWidth: '100%',
+      overflow: 'hidden',
+      padding: '6px',
+      border: '4px solid #fff',
+      borderRadius: '1rem',
+      background: 'rgba(255, 255, 255, 0.4)',
+      boxShadow: '15px 15px 20px rgba(0, 0, 0, 0.3)',
+      transition: 'all .5s ease-in-out',
+      boxSizing: 'border-box',
+    }}>
+
                           <div className="card-body">
-                            <h5 className="card-title">{quiz.quizName}</h5>
+                            <h5 className=" font-semibold text-bold  "   style={{ fontWeight:"bold", fontSize:"30px" } } >{quiz.quizName}</h5>
                             <p className="card-text">{quiz.quizDesc}</p>
                             <Link
                               to={`/quiz/${quiz._id}`}
-                              className="btn btn-sm btn-outline-primary"
+                              className="btn "
+                              style={{ color: '#006996', border: '1px solid #006996', padding:"7px" }}
+                            
                             >
-                              Attempt Now
+                              
+                              Attempt Now 👉
                             </Link>
                           </div>
                         </div>
@@ -50,26 +67,40 @@ const Quizzes = () => {
           {attemptedQuiz && attemptedQuiz.length > 0 && (
             <div className="quiz-sec">
               <h4 style={{ color: "#006996" }}>Attempted Quizzes</h4>
-              <div className="my-4 d-flex flex-wrap gap-4">
+              <div className="my-4 d-flex flex-wrap gap-4" >
                 {attemptedQuiz.map((quiz) => {
                   return (
-                    <div key={quiz._id}>
-                      <div className="card" style={{ width: "18rem" }}>
+                    <div key={quiz._id} >
+                      <div className="card" style={{
+      position: 'relative',
+      width: '350px',
+      maxWidth: '100%',
+      overflow: 'hidden',
+      padding: '1rem',
+      border: '4px solid #fff',
+      borderRadius: '1rem',
+      background: 'rgba(255, 255, 255, 0.4)',
+      boxShadow: '15px 15px 20px rgba(0, 0, 0, 0.3)',
+      transition: 'all .5s ease-in-out',
+      boxSizing: 'border-box',
+    }}>
                         <div className="card-body">
-                          <h5 className="card-title">{quiz.quizName}</h5>
+                          <h5 className="font-semibold " style={{ fontWeight:"bold", fontSize:"30px" }}>{quiz.quizName}</h5>
                           <p className="card-text">{quiz.quizDesc}</p>
                           <div className="d-flex gap-3">
                             <Link
                               to={`/quiz/result/${quiz._id}`}
-                              className="btn btn-sm btn-outline-primary"
+                              className="btn btn-sm "
+                              style={{ color: '#006996', border: '1px solid #006996', padding:"7px" }}
                             >
-                              View Result
+                              View Result😍
                             </Link>
                             <Link
                               to={`/quiz/leaderboard/${quiz._id}`}
-                              className="btn btn-sm btn-outline-primary"
+                              className="btn "
+                              style={{ color: '#006996', border: '1px solid #006996', padding:"8px" }}
                             >
-                              Leaderboard
+                              Leaderboard🏆
                             </Link>
                           </div>
                         </div>
@@ -94,3 +125,4 @@ const Quizzes = () => {
 };
 
 export default Quizzes;
+

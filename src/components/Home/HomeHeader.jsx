@@ -31,8 +31,8 @@ const HomeHeader = ({ navToggle, userData, logout }) => {
         <div className="d-flex align-items-center gap-2 px-md-2">
           <div
             style={{
-              width: "40px",
-              height: "40px",
+              width: "50px",
+              height: "45px",
               borderRadius: "50%",
               backgroundColor: "#0073A5",
               color: "white",
@@ -43,7 +43,7 @@ const HomeHeader = ({ navToggle, userData, logout }) => {
             title={userData && userData.name}
             className="d-flex justify-content-center align-items-center"
           >
-            <b>{userData && userData.name.charAt(0).toUpperCase()}</b>
+          😻{userData && userData.name.charAt(0).toUpperCase()} 
           </div>
           <button className="btn d-none  d-md-block"  style={{ background: "#0073A5" ,color:"white" }} onClick={logout}>
             <b>Logout</b>
