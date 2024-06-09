@@ -1,0 +1,127 @@
+.team-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .team-row {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .team-member {
+    flex: 1 0 33.3333%;
+    padding: 15px;
+  }
+  
+  .our-team {
+    background: #000;
+    text-align: center;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .our-team img {
+    width: 100%;
+    height: auto;
+    transition: all 0.55s ease 0s;
+  }
+  
+  .our-team:hover img {
+    opacity: 0.5;
+  }
+  
+  .team-content {
+    padding: 5px 10px 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    opacity: 0;
+    transform: rotate(45deg) translate(-50%, -50%);
+    transform-origin: 0 0;
+    transition: all 0.55s ease 0s;
+  }
+  
+  .our-team:hover .team-content {
+    opacity: 1;
+  }
+  
+  .team-content:before,
+  .team-content:after {
+    content: "";
+    width: 400px;
+    height: 2px;
+    background: rgb(0, 105, 150);
+    position: absolute;
+    top: 0;
+    left: 10px;
+    transform: translateX(100%);
+    transition: all 0.55s ease 0s;
+  }
+  
+  .team-content:after {
+    top: auto;
+    left: auto;
+    bottom: 0;
+    right: 10px;
+    transform: translateX(-100%);
+  }
+  
+  .our-team:hover .team-content:before,
+  .our-team:hover .team-content:after {
+    transform: translate(0, 0);
+    transition-delay: 0.15s;
+  }
+  
+  .title {
+    font-size: 20px;
+    font-weight: 400;
+    color: #fff;
+    text-transform: uppercase;
+    margin: 0;
+  }
+  
+  .title:before,
+  .title:after {
+    content: "";
+    width: 2px;
+    height: 300px;
+    background: #95ccea;
+    position: absolute;
+    top: 10px;
+    right: 0;
+    transform: translateY(100%);
+    transition: all 0.55s ease 0s;
+  }
+  
+  .title:after {
+    top: auto;
+    right: auto;
+    bottom: 10px;
+    left: 0;
+    transform: translateY(-100%);
+  }
+  
+  .our-team:hover .title:before,
+  .our-team:hover .title:after {
+    transform: translate(0, 0);
+  }
+  
+  .post {
+    display: block;
+    padding: 5px 10px;
+    background: #95ccea;
+    font-size: 17px;
+    font-weight: 700;
+    color: #000;
+    text-transform: capitalize;
+  }
+  
+  @media only screen and (max-width: 990px) {
+    .team-member {
+      flex: 1 0 100%;
+      margin-bottom: 30px;
+    }
+  }
+  

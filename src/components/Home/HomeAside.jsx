@@ -48,6 +48,15 @@ const HomeAside = ({
         >
          <i class="bi bi-book"></i>Study Resources
         </li>
+        <li
+          className={contentNumber === 5 ? "nav-item active" : "nav-item"}
+          onClick={() => {
+            setContentNumber(5);
+            navToggle();
+          }}
+        >
+        <i class="bi bi-people-fill"></i> Team
+        </li>
         <div
           className="log-out d-md-none d-flex"
           title="Log Out"

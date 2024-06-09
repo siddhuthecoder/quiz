@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Quizzes, Dashboard, TestUpdates, Results } from "../components";
 import HomeHeader from "../components/Home/HomeHeader";
 import HomeAside from "../components/Home/HomeAside";
-
+import Team  from "./Team";
 export default function Home() {
   const userData = useSelector((state) => state.user.userDetails);
   const [contentNumber, setContentNumber] = useState(1);
@@ -64,6 +64,11 @@ export default function Home() {
         {contentNumber === 4 && (
           <>
             <Results />
+          </>
+        )}
+        {contentNumber === 5 && (
+          <>
+            <Team/>
           </>
         )}
       </main>
