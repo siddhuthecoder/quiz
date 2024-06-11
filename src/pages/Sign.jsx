@@ -100,7 +100,8 @@ export default function Sign() {
               >
                 <h2 className="title">Sign in</h2>
                 <div className="input-field">
-                <i class="bi bi-envelope-arrow-up-fill"></i>
+                {/* <i class="bi bi-envelope-arrow-up-fill"></i> */}
+                <div className="m-3"> 📩</div>
                   <input
                     required
                     type="email"
@@ -111,7 +112,8 @@ export default function Sign() {
                   />
                 </div>
                 <div className="input-field">
-                <i class="bi bi-unlock-fill"></i>
+                {/* <i class="bi bi-unlock-fill"></i> */}
+                <div className="m-3"> 🔑</div>
                   <input
                     required
                     type="password"
@@ -135,7 +137,8 @@ export default function Sign() {
               >
                 <h2 className="title">Sign up</h2>
                 <div className="input-field">
-                <i class="bi bi-person"></i>
+                {/* <i class="bi bi-person"></i> */}
+                <div className="m-3">👱 </div>
                   <input
                     required
                     type="text"
@@ -146,7 +149,8 @@ export default function Sign() {
                   />
                 </div>
                 <div className="input-field">
-                <i class="bi bi-envelope-arrow-up-fill"></i>
+                {/* <i class="bi bi-envelope-arrow-up-fill"></i> */}
+                <div className="m-3"> 📩</div>
                   <input
                     required
                     type="email"
@@ -157,7 +161,8 @@ export default function Sign() {
                   />
                 </div>
                 <div className="input-field">
-                <i class="bi bi-unlock-fill"></i>
+                {/* <i class="bi bi-unlock-fill"></i> */}
+                 <div className="m-3"> 🔑</div>
                   <input
                     required
                     type="password"
