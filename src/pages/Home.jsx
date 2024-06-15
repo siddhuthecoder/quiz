@@ -45,7 +45,7 @@ export default function Home() {
         sideBar={sideBar}
       />
 
-      <main className="sides-main " style={{ background: "#E8F2FF" }}>
+      <main className="sides-main " >
         {contentNumber === 1 && (
           <>
             <Dashboard />

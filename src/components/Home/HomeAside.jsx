@@ -37,7 +37,7 @@ const HomeAside = ({
             navToggle();
           }}
         >
-        <i class="bi bi-bell"></i>Leaderboard
+        <i class="bi bi-phone"></i>Contact
         </li>
         <li
           className={contentNumber === 4 ? "nav-item active" : "nav-item"}
